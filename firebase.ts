@@ -1,16 +1,35 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+// firebase.ts
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAiXinjWab1byDiTIBiMC5Gcj7p8efJnXQ",
-  authDomain: "medicheck-6fb91.firebaseapp.com",
-  projectId: "medicheck-6fb91",
-  storageBucket: "medicheck-6fb91.firebasestorage.app",
-  messagingSenderId: "461419071986",
-  appId: "1:461419071986:web:b062eace1f4ca132c8036b"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
+// Validate environment variables in development
+if (import.meta.env.DEV) {
+  const requiredEnvVars = [
+    'VITE_FIREBASE_API_KEY',
+    'VITE_FIREBASE_AUTH_DOMAIN',
+    'VITE_FIREBASE_PROJECT_ID'
+  ];
+  
+  requiredEnvVars.forEach(varName => {
+    if (!import.meta.env[varName]) {
+      console.warn(`Warning: ${varName} is not set`);
+    }
+  });
+}
+
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+export default app;
