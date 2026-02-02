@@ -1,8 +1,0 @@
-{
-  "name": "MediCheck",
-  "description": "A comprehensive healthcare platform connecting patients and doctors. Patients can analyze symptoms using AI, find nearby pharmacies, and share reports with doctors in real-time.",
-  "requestFramePermissions": [
-    "geolocation",
-    "microphone"
-  ]
-}
